@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon ./bin/www",
     "grunt": "grunt",
+    "test": "mocha dist/test",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -15,19 +16,27 @@
     "errorhandler": "^1.4.3",
     "express": "^4.14.0",
     "method-override": "^2.3.6",
+    "mongoose": "^4.6.7",
     "morgan": "^1.7.0",
-    "pug": "^2.0.0-beta6"
+    "pug": "^2.0.0-beta6",
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "@types/body-parser": "0.0.33",
+    "@types/chai": "^3.4.34",
     "@types/cookie-parser": "^1.3.30",
     "@types/errorhandler": "0.0.30",
     "@types/method-override": "0.0.29",
+    "@types/mocha": "^2.2.32",
+    "@types/mongodb": "^2.1.34",
+    "@types/mongoose": "^4.5.41",
     "@types/morgan": "^1.7.32",
+    "chai": "^3.5.0",
     "grunt": "^1.0.1",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-ts": "^6.0.0-beta.3",
+    "mocha": "^3.1.2",
     "nodemon": "^1.11.0",
     "typescript": "^2.0.8"
   }
