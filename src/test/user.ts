@@ -1,51 +1,58 @@
-import "mocha";
+import { suite, test } from "mocha-typescript";
 import { IUser } from "../interfaces/user";
 import { IUserModel } from "../models/user";
 import { userSchema } from "../schemas/user";
-
-//use q promises
-global.Promise = require("q").Promise;
-
-//import mongoose
 import mongoose = require("mongoose");
 
-//use q library for mongoose promise
-mongoose.Promise = global.Promise;
+@suite
+class UserTest {
 
-//connect to mongoose and create model
-const MONGODB_CONNECTION: string = "mongodb://localhost:27017/heros";
-let connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION);
-var User: mongoose.Model<IUserModel> = connection.model<IUserModel>("User", userSchema);
+  //store test data
+  private data: IUser;
 
-//require chai and use should() assertions
-let chai = require("chai");
-chai.should();
+  //the User model
+  public static User: mongoose.Model<IUserModel>;
 
-describe("User", function() {
+  public static before() {
+    //use q promises
+    global.Promise = require("q").Promise;
 
-  describe("create()", function () {
-    it("should create a new User", function () {
-      //user object
-      let user: IUser = {
-        email: "foo@bar.com",
-        firstName: "Brian",
-        lastName: "Love"
-      };
+    //use q library for mongoose promise
+    mongoose.Promise = global.Promise;
 
-      //create user and return promise
-      return new User(user).save().then(result => {
-        //verify _id property exists
-        result._id.should.exist;
+    //connect to mongoose and create model
+    const MONGODB_CONNECTION: string = "mongodb://localhost:27017/heros";
+    let connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION);
+    UserTest.User = connection.model<IUserModel>("User", userSchema);
 
-        //verify email
-        result.email.should.equal(user.email);
+    //require chai and use should() assertions
+    let chai = require("chai");
+    chai.should();
+  }
 
-        //verify firstName
-        result.firstName.should.equal(user.firstName);
+  constructor() {
+    this.data = {
+      email: "foo@bar.com",
+      firstName: "Brian",
+      lastName: "Love"
+    };
+  }
 
-        //verify lastName
-        result.lastName.should.equal(user.lastName);
-      })
+  @test("should create a new User")
+  public create() {
+    //create user and return promise
+    return new UserTest.User(this.data).save().then(result => {
+      //verify _id property exists
+      result._id.should.exist;
+
+      //verify email
+      result.email.should.equal(this.data.email);
+
+      //verify firstName
+      result.firstName.should.equal(this.data.firstName);
+
+      //verify lastName
+      result.lastName.should.equal(this.data.lastName);
     });
-  });
-});
+  }
+}
