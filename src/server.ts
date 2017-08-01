@@ -84,7 +84,7 @@ export class Server {
       extended: true
     }));
 
-    //mount cookie parker
+    //mount cookie parser middleware
     this.app.use(cookieParser("SECRET_GOES_HERE"));
 
     //mount override?
