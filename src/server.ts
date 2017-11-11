@@ -4,7 +4,6 @@ import * as express from "express";
 import * as logger from "morgan";
 import * as path from "path";
 import * as errorHandler from "errorhandler";
-import * as methodOverride from "method-override";
 
 import { IndexRoute } from "./routes/index";
 
