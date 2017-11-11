@@ -3,8 +3,8 @@ import * as cookieParser from "cookie-parser";
 import * as express from "express";
 import * as logger from "morgan";
 import * as path from "path";
-import errorHandler = require("errorhandler");
-import methodOverride = require("method-override");
+import * as errorHandler from "errorhandler";
+import * as methodOverride from "method-override";
 
 import { IndexRoute } from "./routes/index";
 
@@ -86,9 +86,6 @@ export class Server {
 
     //mount cookie parser middleware
     this.app.use(cookieParser("SECRET_GOES_HERE"));
-
-    //mount override?
-    this.app.use(methodOverride());
 
     // catch 404 and forward to error handler
     this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
