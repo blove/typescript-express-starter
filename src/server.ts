@@ -127,6 +127,11 @@ export class Server {
 
     //error handling
     this.app.use(errorHandler());
+    
+    // Listening
+    this.app.listen(process.env.PORT || 3000, () => {
+      console.log('Server listening on '+ (process.env.PORT || 3000));
+    });
   }
 
   /**
