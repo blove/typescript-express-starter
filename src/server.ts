@@ -2,8 +2,7 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as express from 'express';
 import * as path from 'path';
-import * as winston from 'winston';
-import * as expressWinston from 'express-winston';
+import * as logger from 'morgan';
 import * as errorHandler from 'errorhandler';
 import initApi from './routes/api';
 
@@ -61,14 +60,7 @@ export class Server {
     }));
 
     // mount logger
-    this.app.use(expressWinston.logger({
-      transports: [
-        new winston.transports.Console({
-          json: true,
-          colorize: true
-        })
-      ]
-    }));
+    this.app.use(logger('dev'));
 
     // mount cookie parser middleware
     this.app.use(cookieParser('SECRET_GOES_HERE'));
