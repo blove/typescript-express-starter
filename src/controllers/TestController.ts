@@ -8,7 +8,7 @@ class TestController {
       name: 'test',
       description: 'Sent from test',
     };
-    res.status(200).json(sample);
+    res.status(200).send(sample);
   }
 
 }

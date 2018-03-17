@@ -1,8 +1,9 @@
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as express from 'express';
-import * as logger from 'morgan';
 import * as path from 'path';
+import * as winston from 'winston';
+import * as expressWinston from 'express-winston';
 import * as errorHandler from 'errorhandler';
 import initApi from './routes/api';
 
@@ -51,15 +52,22 @@ export class Server {
     // add static paths
     this.app.use(express.static(path.join(__dirname, 'public')));
 
-    // mount logger
-    this.app.use(logger('dev'));
-
     // mount json form parser
     this.app.use(bodyParser.json());
 
     // mount query string parser
     this.app.use(bodyParser.urlencoded({
       extended: true
+    }));
+
+    // mount logger
+    this.app.use(expressWinston.logger({
+      transports: [
+        new winston.transports.Console({
+          json: true,
+          colorize: true
+        })
+      ]
     }));
 
     // mount cookie parser middleware
