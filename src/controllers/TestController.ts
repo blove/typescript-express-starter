@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router, Application } from 'express';
+import { Request, Response } from 'express';
 
 class TestController {
 

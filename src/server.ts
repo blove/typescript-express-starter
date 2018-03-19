@@ -11,7 +11,7 @@ import initApi from './routes/api';
  *
  * @class Server
  */
-export class Server {
+export default class Server {
 
   public app: express.Application;
 

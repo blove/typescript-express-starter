@@ -1,14 +1,17 @@
 {
-  "name": "heros",
-  "description": "The tour of heros",
+  "name": "boilerplate",
+  "description": "A node typescript boilerplate",
   "version": "1.0.0",
   "private": true,
-  "author": "Brian Love",
+  "author": "",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon ./bin/www",
-    "grunt": "grunt",
-    "start": "node ./bin/www",
-    "watch": "npm-run-all -p grunt dev"
+    "start": "node dist/index.js",
+    "build": "npm run build-ts && npm run tslint",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch-node": "nodemon dist/index.js",
+    "tslint": "tslint -c tslint.json -p tsconfig.json"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -23,12 +26,10 @@
     "@types/errorhandler": "0.0.32",
     "@types/method-override": "0.0.31",
     "@types/morgan": "^1.7.35",
-    "grunt": "^1.0.1",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-ts": "^6.0.0-beta.17",
+    "@types/node": "^9.4.7",
+    "concurrently": "^3.5.1",
     "nodemon": "^1.12.1",
-    "npm-run-all": "^4.1.2",
+    "ts-node": "^5.0.1",
     "typescript": "^2.6.1"
   }
 }
