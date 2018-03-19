@@ -11,11 +11,14 @@
     "watch-ts": "tsc -w",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-node": "nodemon dist/index.js",
-    "tslint": "tslint -c tslint.json -p tsconfig.json"
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "test": "jest --forceExit --coverage --verbose --runInBand",
+    "watch-test": "jest --watch"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
+    "dotenv": "^5.0.1",
     "errorhandler": "^1.5.0",
     "express": "^4.16.2",
     "morgan": "^1.9.0"
@@ -28,6 +31,7 @@
     "@types/morgan": "^1.7.35",
     "@types/node": "^9.4.7",
     "concurrently": "^3.5.1",
+    "jest": "^22.4.2",
     "nodemon": "^1.12.1",
     "ts-node": "^5.0.1",
     "typescript": "^2.6.1"

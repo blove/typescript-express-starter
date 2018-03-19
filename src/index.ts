@@ -1,28 +1,34 @@
-//module dependencies
-import server from './server';
-import * as http from 'http';
+import * as http from "http";
+import * as dotenv from "dotenv";
+import server from "./server";
+
 const debug = require("debug")("express:server");
 
-//create http server
+// Load environment variables from .env file, where API keys and passwords are configured
+dotenv.config({ path: ".env" });
+
+// Create http server
 const httpPort = normalizePort(process.env.PORT || 8080);
 const app = server.bootstrap().app;
 app.set("port", httpPort);
-var httpServer = http.createServer(app);
+const httpServer = http.createServer(app);
 
-//listen on provided ports
-httpServer.listen(httpPort);
+// Listen on provided ports
+httpServer.listen(httpPort, () => {
+  console.log(("  App is running at http://localhost:%d in %s mode"), app.get("port"), app.get("env"));
+  console.log("  Press CTRL-C to stop\n");
+});
 
-//add error handler
+// Add error handler
 httpServer.on("error", onError);
 
-//start listening on port
+// Start listening on port
 httpServer.on("listening", onListening);
-
 
 /**
  * Normalize a port into a number, string, or false.
  */
-function normalizePort(val) {
+function normalizePort(val: any) {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -41,7 +47,7 @@ function normalizePort(val) {
 /**
  * Event listener for HTTP server "error" event.
  */
-function onError(error) {
+function onError(error: any) {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -50,7 +56,7 @@ function onError(error) {
     ? "Pipe " + httpPort
     : "Port " + httpPort;
 
-  // handle specific listen errors with friendly messages
+  // Handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
       console.error(bind + " requires elevated privileges");
