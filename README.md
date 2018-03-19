@@ -8,12 +8,18 @@ Install the node packages via:
 
 `$ npm install`
 
-And then run the grunt task to compile the TypeScript:
+And then run the build to compile the TypeScript:
 
-`$ npm run grunt`
+`$ npm run build`
 
 ## Starting
 
 To start the server run:
 
 `$ npm start`
+
+## Watch
+
+To watch for any changes run:
+
+`$ npm run watch`

@@ -1,18 +1,17 @@
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import * as express from "express";
-import * as logger from "morgan";
 import * as path from "path";
+import * as logger from "morgan";
 import * as errorHandler from "errorhandler";
-
-import { IndexRoute } from "./routes/index";
+import initApi from "./routes/api";
 
 /**
  * The server.
  *
  * @class Server
  */
-export class Server {
+export default class Server {
 
   public app: express.Application;
 
@@ -35,27 +34,11 @@ export class Server {
    * @constructor
    */
   constructor() {
-    //create expressjs application
+    // create expressjs application
     this.app = express();
 
-    //configure application
+    // configure application
     this.config();
-
-    //add routes
-    this.routes();
-
-    //add api
-    this.api();
-  }
-
-  /**
-   * Create REST API routes
-   *
-   * @class Server
-   * @method api
-   */
-  public api() {
-    //empty for now
   }
 
   /**
@@ -65,53 +48,34 @@ export class Server {
    * @method config
    */
   public config() {
-    //add static paths
+    // Add static paths
     this.app.use(express.static(path.join(__dirname, "public")));
 
-    //configure pug
-    this.app.set("views", path.join(__dirname, "views"));
-    this.app.set("view engine", "pug");
-
-    //mount logger
-    this.app.use(logger("dev"));
-
-    //mount json form parser
+    // Mount json form parser
     this.app.use(bodyParser.json());
 
-    //mount query string parser
+    // Mount query string parser
     this.app.use(bodyParser.urlencoded({
       extended: true
     }));
 
-    //mount cookie parser middleware
+    // Mount logger
+    this.app.use(logger("dev"));
+
+    // Mount cookie parser middleware
     this.app.use(cookieParser("SECRET_GOES_HERE"));
 
-    // catch 404 and forward to error handler
+    // Catch 404 and forward to error handler
     this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-        err.status = 404;
-        next(err);
+      err.status = 404;
+      next(err);
     });
 
-    //error handling
+    // Error handling
     this.app.use(errorHandler());
-  }
 
-  /**
-   * Create and return Router.
-   *
-   * @class Server
-   * @method config
-   * @return void
-   */
-  private routes() {
-    let router: express.Router;
-    router = express.Router();
-
-    //IndexRoute
-    IndexRoute.create(router);
-
-    //use router middleware
-    this.app.use(router);
+    // Handle api routes
+    initApi(this.app);
   }
 
 }
