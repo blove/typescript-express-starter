@@ -5,7 +5,7 @@ import { BaseRoute } from "./route";
 /**
  * / route
  *
- * @class User
+ * @class IndexRoute
  */
 export class IndexRoute extends BaseRoute {
 
