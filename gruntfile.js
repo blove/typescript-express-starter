@@ -23,7 +23,7 @@ module.exports = function(grunt) {
     ts: {
       app: {
         files: [{
-          src: ["src/\*\*/\*.ts", "!src/.baseDir.ts"],
+          src: ["src/**/*.ts", "!src/.baseDir.ts"],
           dest: "./dist"
         }],
         options: {
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
     },
     watch: {
       ts: {
-        files: ["src/\*\*/\*.ts"],
+        files: ["src/**/*.ts"],
         tasks: ["ts"]
       },
       views: {
