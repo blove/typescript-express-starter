@@ -100,7 +100,7 @@ export class Server {
    * Create and return Router.
    *
    * @class Server
-   * @method config
+   * @method routes
    * @return void
    */
   private routes() {
